@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ptx-2b-eDT">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Rompecabezas-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DD-rg-ltz">
+                                <rect key="frame" x="281" y="195" width="38" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="m1W-rq-XdY" kind="show" id="eGV-5c-xxe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyi-By-4vl">
+                                <rect key="frame" x="277" y="317" width="42" height="30"/>
+                                <state key="normal" title="About">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="15I-L7-9v5" kind="show" id="OJn-zY-J1m"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yyi-By-4vl" firstAttribute="top" secondItem="5DD-rg-ltz" secondAttribute="bottom" constant="92" id="8ZQ-io-Jat"/>
+                            <constraint firstItem="5DD-rg-ltz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="131" id="LHC-Fg-eJA"/>
+                            <constraint firstAttribute="centerX" secondItem="yyi-By-4vl" secondAttribute="centerX" constant="2" id="xMr-Oe-Dei"/>
+                            <constraint firstAttribute="centerX" secondItem="5DD-rg-ltz" secondAttribute="centerX" id="xk3-6r-L2y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rompecabezas" id="rjh-U8-kzb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1380" y="166"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="AvB-P9-Mnv">
+            <objects>
+                <viewController id="m1W-rq-XdY" customClass="Login" customModule="Puzzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wd4-g6-8kR"/>
+                        <viewControllerLayoutGuide type="bottom" id="RN4-C3-UWL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qWw-dF-XvA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="👸" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZa-hx-R91">
+                                <rect key="frame" x="395" y="112" width="110" height="91"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="👰" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vku-zl-GIf">
+                                <rect key="frame" x="91" y="347" width="104" height="87"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="👳" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GX3-o1-cm2">
+                                <rect key="frame" x="395" y="347" width="98" height="87"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="🎅" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVJ-H9-eiY">
+                                <rect key="frame" x="54" y="97" width="179" height="106"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Vku-zl-GIf" firstAttribute="leading" secondItem="qWw-dF-XvA" secondAttribute="leadingMargin" constant="35" id="1bH-lV-XKf"/>
+                            <constraint firstItem="dVJ-H9-eiY" firstAttribute="top" secondItem="Wd4-g6-8kR" secondAttribute="bottom" constant="92" id="CVn-T0-dvI"/>
+                            <constraint firstItem="GX3-o1-cm2" firstAttribute="top" secondItem="IZa-hx-R91" secondAttribute="bottom" constant="194" id="Ib7-kZ-S61"/>
+                            <constraint firstItem="IZa-hx-R91" firstAttribute="leading" secondItem="dVJ-H9-eiY" secondAttribute="trailing" constant="100" id="dBh-Zk-BSv"/>
+                            <constraint firstItem="GX3-o1-cm2" firstAttribute="leading" secondItem="Vku-zl-GIf" secondAttribute="trailing" constant="100" id="hes-Od-RIb"/>
+                            <constraint firstItem="IZa-hx-R91" firstAttribute="top" secondItem="Wd4-g6-8kR" secondAttribute="bottom" constant="92" id="pfE-Fy-ohh"/>
+                            <constraint firstItem="Vku-zl-GIf" firstAttribute="top" secondItem="dVJ-H9-eiY" secondAttribute="bottom" constant="194" id="ybl-Tq-p0E"/>
+                            <constraint firstItem="dVJ-H9-eiY" firstAttribute="leading" secondItem="qWw-dF-XvA" secondAttribute="leadingMargin" constant="45" id="zWa-FL-xIu"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="NMv-3y-RTD" appends="YES" id="dlH-o7-1yJ"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="allahuAkbar" destination="GX3-o1-cm2" id="A9W-gC-7yr"/>
+                        <outlet property="bride" destination="Vku-zl-GIf" id="tSl-ZG-2UZ"/>
+                        <outlet property="princess" destination="IZa-hx-R91" id="bR8-LT-sUx"/>
+                        <outlet property="santa" destination="dVJ-H9-eiY" id="eCw-Ay-bcz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RY8-ei-QOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="NMv-3y-RTD">
+                    <connections>
+                        <action selector="onLongPress:" destination="m1W-rq-XdY" id="EYB-oM-Int"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2063" y="166"/>
+        </scene>
+        <!--Puzzle-->
+        <scene sceneID="Nng-zt-Cz8">
+            <objects>
+                <viewController id="YrH-O4-ev5" customClass="Puzzle" customModule="Puzzle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OKh-uX-drK"/>
+                        <viewControllerLayoutGuide type="bottom" id="xLM-d1-J59"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y5U-bU-6Nn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cEy-eR-802" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2063" y="911"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MJk-21-2rX">
+            <objects>
+                <viewController id="15I-L7-9v5" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y8t-l0-568"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z40-mg-vDs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SXZ-bv-bdV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EC7-Zx-8Fi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1380" y="894"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="EKU-WN-rUH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ptx-2b-eDT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9qJ-Fh-jZw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Mej-47-fje"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NR9-eL-J57" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="686" y="166"/>
+        </scene>
+    </scenes>
+</document>

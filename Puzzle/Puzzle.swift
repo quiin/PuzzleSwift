@@ -7,18 +7,27 @@
 //
 
 import UIKit
+import AudioToolbox
+import AVFoundation
+import MediaPlayer
 
-class Puzzle: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UIGestureRecognizerDelegate {
+class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UIGestureRecognizerDelegate {
     
     //vars & cons
-    var pieces = ["puzzle_01.gif", "puzzle_02.gif", "puzzle_03.gif", "puzzle_04.gif", "puzzle_05.gif", "puzzle_06.gif", "puzzle_07.gif", "puzzle_08.gif", "puzzle_09.gif", "puzzle_10.gif", "puzzle_11.gif", "puzzle_12.gif", "puzzle_13.gif", "puzzle_14.gif", "puzzle_15.gif", "puzzle_16.gif"]
-    
+    var pieces = ["puzzle_01.gif", "puzzle_02.gif", "puzzle_03.gif", "puzzle_04.gif", "puzzle_05.gif", "puzzle_06.gif", "puzzle_07.gif", "puzzle_08.gif", "puzzle_09.gif"]
+    var winning = ["puzzle_01.gif", "puzzle_02.gif", "puzzle_03.gif", "puzzle_04.gif", "puzzle_05.gif", "puzzle_06.gif", "puzzle_07.gif", "puzzle_08.gif", "puzzle_09.gif"]
+
     var fromCell = UICollectionViewCell()
-    var toCell = UICollectionViewCell()
-    
-    
+    var fromIndex = -1
+    var toIndex = -1
     var timer : NSTimer = NSTimer()
     let cellID = "piece"
+    var screenSize:CGRect!
+    var screenWidth:CGFloat!
+    var screenHeight:CGFloat!
+    var currentTime = 0
+    var bestTime = -1
+
     
     //Outlets
     @IBOutlet weak var lbl_timeLeft: UILabel!
@@ -28,7 +37,7 @@ class Puzzle: UIViewController, UICollectionViewDelegate,UICollectionViewDataSou
     
     //Collection methods
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
+        return 9
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -42,45 +51,79 @@ class Puzzle: UIViewController, UICollectionViewDelegate,UICollectionViewDataSou
     //fill collectionView
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! UICollectionViewCell
+        cell.frame.size.width = screenWidth/4
+        cell.frame.size.height = screenHeight/4
         let piece:UIImageView = cell.viewWithTag(100) as! UIImageView
         piece.image = UIImage(named: pieces[indexPath.row])
         piece.image?.accessibilityIdentifier = pieces[indexPath.row]
         return cell
     }
     
+
     
     //handeLongPress
     func onLongPress(gestureRecognicer: UIPanGestureRecognizer){
-        var firstSelected = -1
-        var lastSelected = -1
         
         var point:CGPoint = gestureRecognicer.locationInView(self.collectionView)
         var center = CGPointZero
         
         switch gestureRecognicer.state {
         case .Began:
-            println("Began")
             let indexPath = self.collectionView.indexPathForItemAtPoint(point)
             if let index = indexPath{
                 self.fromCell = self.collectionView.cellForItemAtIndexPath(indexPath!)!
-                firstSelected = index.row
-                println("First selected = \(firstSelected)")
+                fromIndex = index.row
                 let piece:UIImageView = fromCell.viewWithTag(100) as! UIImageView
-                println(piece.image?.accessibilityIdentifier)
+
             }
         case .Changed:
             let indexPath = self.collectionView.indexPathForItemAtPoint(point)
             if let index = indexPath{
-
                 let piece:UIImageView = fromCell.viewWithTag(100) as! UIImageView
                 center = piece.center
+                //validate this
                 self.fromCell.center.x = point.x
                 self.fromCell.center.y = point.y
             }
             
         case .Ended:
-            println("Ended")
+            let indexPath = self.collectionView.indexPathForItemAtPoint(point)
+            if let index = indexPath{
+
+                toIndex = index.row
+                
+                let fromName = pieces[fromIndex]
+                let toName = pieces[toIndex]
+                let tempName = fromName
+
+                pieces[fromIndex] = toName
+                pieces[toIndex] = tempName
+                
+                let URL = NSBundle.mainBundle().URLForResource("clic", withExtension: "wav")
+                var soundID:SystemSoundID = 0
+                AudioServicesCreateSystemSoundID(URL, &soundID)
+                AudioServicesPlayAlertSound(soundID)
+                
+                
+                if didWin(){
+                    var alert = UIAlertController(title: "Congratz!", message: "You won GG 👏🏼🎉", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    timer.invalidate()
+                    println(bestTime)
+                    println(currentTime)
+                    
+                    if currentTime < bestTime && bestTime != 0{
+                        var txt = "Best time: "
+                        txt += String(currentTime)
+                        lbl_bestTime.text = txt
+                    }
+                    
+                }
+                
+            }
             collectionView.reloadData()
+            collectionView.reloadInputViews()
             
         default:
             println("Default??????")
@@ -88,14 +131,62 @@ class Puzzle: UIViewController, UICollectionViewDelegate,UICollectionViewDataSou
        
     }
     
+    
+    
+    func didWin() -> Bool{
+        println(pieces)
+        for i in 0..<pieces.count{
+            if pieces[i] != winning[i]{
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    func shuffle(){
+        for i in 0..<pieces.count{
+            var j = Int(arc4random_uniform(UInt32(pieces.count)))
+            let temp = pieces[i]
+            pieces[i] = pieces[j]
+            pieces[j] = temp
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "update", userInfo: nil, repeats: true)
+        
+        screenSize = UIScreen.mainScreen().bounds
+        screenWidth = screenSize.width
+        screenHeight = screenSize.height
+        
+        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsetsMake(5, 0, 5, 0)
+        layout.itemSize = CGSize(width: screenWidth/4,height: screenHeight/4)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        collectionView.collectionViewLayout = layout
+        
         let longPress = UIPanGestureRecognizer(target: self, action: "onLongPress:")
         longPress.minimumNumberOfTouches = 1
         longPress.delaysTouchesBegan = true
         longPress.delegate = self
         self.collectionView.addGestureRecognizer(longPress)
+        
+        
+        
+        
+//        shuffle()
 
+    }
+    
+    func update(){
+        currentTime++
+        if bestTime < 0{
+            bestTime++
+        }
+        lbl_timeLeft.text = String(currentTime)
     }
     
     override func didReceiveMemoryWarning() {

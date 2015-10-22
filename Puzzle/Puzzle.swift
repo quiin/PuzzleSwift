@@ -33,6 +33,7 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     @IBOutlet weak var lbl_timeLeft: UILabel!
     @IBOutlet weak var lbl_bestTime: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var btn_reset: UIButton!
     
     
     //Collection methods
@@ -106,6 +107,7 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                 
                 
                 if didWin(){
+                    btn_reset.enabled = true
                     var alert = UIAlertController(title: "Congratz!", message: "You won GG 👏🏼🎉", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -113,10 +115,14 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
                     println(bestTime)
                     println(currentTime)
                     
-                    if currentTime < bestTime && bestTime != 0{
+                    if currentTime < bestTime{
                         var txt = "Best time: "
                         txt += String(currentTime)
                         lbl_bestTime.text = txt
+                    }
+                    if bestTime < 0{
+                        bestTime = currentTime
+                        lbl_bestTime.text = String(bestTime)
                     }
                     
                 }
@@ -131,6 +137,18 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
        
     }
     
+    
+    
+   
+    @IBAction func reset(sender: AnyObject) {
+        shuffle()
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "update", userInfo: nil, repeats: true)
+        currentTime = 0
+        lbl_timeLeft.text = String(currentTime)
+        collectionView.reloadData()
+        btn_reset.enabled = false
+    }
+   
     
     
     func didWin() -> Bool{
@@ -156,6 +174,7 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "update", userInfo: nil, repeats: true)
+        btn_reset.enabled = false
         
         screenSize = UIScreen.mainScreen().bounds
         screenWidth = screenSize.width
@@ -177,15 +196,12 @@ class Puzzle: UIViewController, UICollectionViewDelegateFlowLayout,UICollectionV
         
         
         
-//        shuffle()
+        shuffle()
 
     }
     
     func update(){
         currentTime++
-        if bestTime < 0{
-            bestTime++
-        }
         lbl_timeLeft.text = String(currentTime)
     }
     

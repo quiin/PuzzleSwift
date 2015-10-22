@@ -41,7 +41,7 @@ class Login: UIViewController {
         }
         
     }
-  
+    
     
     @IBAction func onDownSwipe(sender: AnyObject) {
         if loginChecker[1] == 2{
